@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:17 by lprates           #+#    #+#             */
-/*   Updated: 2021/03/27 17:24:25 by lprates          ###   ########.fr       */
+/*   Updated: 2021/03/27 19:39:15 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,8 @@ int main()
 	//printf("ft_printf count: %i\n", ft_printf("start mine:    as%10cdc%-*shaj%%b\n", t, 50, str));
 	//printf("printf count: %i\n", printf("start printf:  asdchaj%*pb\n", 20, str));
 	//printf("loc itoa: %s\n", loc_itoa(daf));
-	printf("\nftprint count: %i\n", ft_printf(" 0*%0-*i*0 0*%0*i*0 ", 21, 1021, 21, -1011));
-	printf("\nprint count: %i\n", printf(" 0*%0-*i*0 0*%0*i*0 ", 21, 1021, 21, -1011));
+	printf("\nftprint count: %i\n", ft_printf(" %-3.2i ", 0));
+	printf("\nprint count: %i\n", printf(" %-3.2i ", 0));
 	//printf("start printf: a%10cjsd%0.*ich%fa%sj\n", t, 1, daf, f, str);
 	//printf("")
 	//int x = ft_isvalid("10cha%sj\n");

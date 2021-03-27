@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:55 by lprates           #+#    #+#             */
-/*   Updated: 2021/03/27 16:57:12 by lprates          ###   ########.fr       */
+/*   Updated: 2021/03/27 19:40:03 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*ft_uint_to_hexa(unsigned int x);
 int		ft_write_hexa(unsigned int i, t_settings *sets, char fmt);
 void	ft_putzeros(int len);
 void	ft_putblanks(int len);
+char	*ft_putblanks_two(char *s, int len);
 int		ft_write_pointer(unsigned int i, t_settings *sets);
 
 #endif

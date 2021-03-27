@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:47:47 by lprates           #+#    #+#             */
-/*   Updated: 2021/03/27 17:35:57 by lprates          ###   ########.fr       */
+/*   Updated: 2021/03/27 19:42:31 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
 			tmp = (char *)loc_calloc(1, *len, '0');
 			s = freejoin(tmp, s);
 		}
-		*len = ft_strlen(s);
+		
 		free(tmp);
 	}
 	else if (i == 0)
 		s = free_substr(s, sets->precision);
+	*len = ft_strlen(s);
 	return (s);
 }
 
@@ -146,30 +147,32 @@ int		ft_write_int(int i, t_settings *sets)
 
 int		ft_write_uint(unsigned int i, t_settings *sets)
 {
-	char *nstr;
-	char *tmp;
-	int len;
+	char	*nstr;
+	int		len;
 
 	nstr = ft_uitoa(i);
 	len = ft_strlen(nstr);
-	if (sets->dot && sets->precision > len)
-	{
-		len = sets->precision - len;
-		tmp = (char *)loc_calloc(1, len, '0');
-		nstr = ft_strjoin(tmp, nstr);
-		len = ft_strlen(nstr);
-		free(tmp);
-	}
-	len = sets->width - len;
+	if (sets->dot)
+		nstr = ft_int_precision(nstr, sets, &len, i);
+	len = sets->width - ft_strlen(nstr);
 	if (!sets->minus)
-		ft_putblanks(len);
+	{
+		if (sets->zero && (sets->precision < 0 || !sets->dot))
+			nstr = ft_add_zeros(nstr, &len, sets);
+		else if (len > 0)
+			nstr = ft_add_spaces(nstr, len);
+	}
 	ft_putstr(nstr);
+	len = sets->width - ft_strlen(nstr);
 	if (sets->minus)
 		ft_putblanks(len);
 	len = ft_strlen(nstr);
 	free(nstr);
+	// this is wrong, have to put all in buffer and count there for
+	// consistencty
 	return (ft_isbigger(sets->width, len));
 }
+
  // these should stay in printf_utils
 
 void	ft_putblanks(int len)
@@ -195,29 +198,29 @@ void	ft_putzeros(int len)
 int		ft_write_hexa(unsigned int i, t_settings *sets, char fmt)
 {
 	char	*nstr;
-	char	*tmp;
 	int		len;
 
 	nstr = ft_uint_to_hexa(i);
 	if (fmt == 'X')
 		nstr = ft_strupcase(nstr);
 	len = ft_strlen(nstr);
-	if (sets->dot && sets->precision > len)
-	{
-		len = sets->precision - len;
-		tmp = (char *)loc_calloc(1, len, '0');
-		nstr = ft_strjoin(tmp, nstr);
-		len = ft_strlen(nstr);
-		free(tmp);
-	}
+	if (sets->dot)
+		nstr = ft_int_precision(nstr, sets, &len, i);
 	len = sets->width - len;
 	if (!sets->minus)
-		ft_putblanks(len);
+	{
+		if (sets->zero && (sets->precision < 0 || !sets->dot))
+			nstr = ft_add_zeros(nstr, &len, sets);
+		else if (len > 0)
+			nstr = ft_add_spaces(nstr, len);
+	}
 	ft_putstr(nstr);
+	len = sets->width - ft_strlen(nstr);
 	if (sets->minus)
 		ft_putblanks(len);
+	len = ft_strlen(nstr);
 	free(nstr);
-	return (ft_isbigger(sets->width, ft_strlen(nstr)));
+	return (len);
 }
 
 // seems to be working
