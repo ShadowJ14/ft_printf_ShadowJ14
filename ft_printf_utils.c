@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:47:47 by lprates           #+#    #+#             */
-/*   Updated: 2021/03/27 17:31:21 by lprates          ###   ########.fr       */
+/*   Updated: 2021/03/27 17:35:57 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,10 @@ char	*ft_add_zeros(char *s, int *len, t_settings *sets)
 	return (s);
 }
 
-// seems to be working
 int		ft_write_int(int i, t_settings *sets)
 {
-	char *nstr;
-	int len;
+	char	*nstr;
+	int		len;
 
 	if (i < 0)
 		sets->negative = true;
@@ -142,8 +141,6 @@ int		ft_write_int(int i, t_settings *sets)
 		ft_putblanks(len);
 	len = ft_strlen(nstr);
 	free(nstr);
-	if (sets->negative)
-		return (ft_isbigger(sets->width, len));
 	return (ft_isbigger(sets->width, len));
 }
 
