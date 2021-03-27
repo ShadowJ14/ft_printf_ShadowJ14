@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:55 by lprates           #+#    #+#             */
-/*   Updated: 2021/03/24 22:11:49 by lprates          ###   ########.fr       */
+/*   Updated: 2021/03/27 16:57:12 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 # include "../libft/libft.h"
 
 # define CONV "cspdiuxX%\0"
@@ -50,6 +51,7 @@ typedef struct s_settings{
 	// adds more zero even if width is lower
 	int precision;
 	int ccount;
+	t_bool negative;
 } t_settings;
 
 int		ft_writeconv_string(char *s, t_settings *sets);
