@@ -61,12 +61,12 @@ void	ft_init_struct(t_settings *sets);
 int		ft_write_int(int i, t_settings *sets);
 char	*ft_uitoa(unsigned int n);
 int		ft_write_uint(unsigned int i, t_settings *sets);
-char	*ft_uint_to_hexa(unsigned int x);
+char	*ft_uint_to_hexa(unsigned long x);
 int		ft_write_hexa(unsigned int i, t_settings *sets, char fmt);
 void	ft_putzeros(int len);
 void	ft_putblanks(int len);
 char	*ft_putblanks_two(char *s, int len);
-int		ft_write_pointer(unsigned int i, t_settings *sets);
+int		ft_write_pointer(unsigned long i, t_settings *sets);
 
 #endif
 

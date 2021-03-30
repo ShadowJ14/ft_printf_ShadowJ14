@@ -12,9 +12,9 @@
 
 #include "./includes/ft_printf.h"
 
-static int		c_int(unsigned int n)
+static long	long	c_int(unsigned long n)
 {
-	int count;
+	unsigned long count;
 
 	if (n == 0)
 		return (1);
@@ -45,11 +45,11 @@ static char		*loc_swap(char *ret, size_t i)
 	return (ret);
 }
 
-char	*ft_uint_to_hexa(unsigned int x)
+char	*ft_uint_to_hexa(unsigned long x)
 {
 	char	*ret;
 	size_t	i;
-	long	t;
+	unsigned long	t;
 
 	i = 0;
 	t = x;

@@ -39,7 +39,7 @@ int	ft_convert(char fmt, va_list *ap, t_settings *sets)
 {
 	char	*s;
 	long	c;
-	unsigned int	p;
+	unsigned long	p;
 	int		count;
 
 	count = 0;
@@ -60,7 +60,7 @@ int	ft_convert(char fmt, va_list *ap, t_settings *sets)
 	}
 	else if (fmt == 'p')
 	{
-		p = va_arg(*ap, unsigned int);
+		p = va_arg(*ap, unsigned long);
 		count = ft_write_pointer(p, sets);
 	}
 	if (count)
@@ -194,8 +194,8 @@ int main()
 	//printf("ft_printf count: %i\n", ft_printf("start mine:    as%10cdc%-*shaj%%b\n", t, 50, str));
 	//printf("printf count: %i\n", printf("start printf:  asdchaj%*pb\n", 20, str));
 	//printf("loc itoa: %s\n", loc_itoa(daf));
-	printf("\nftprint count: %i\n", ft_printf(" %-3.2i ", 0));
-	printf("\nprint count: %i\n", printf(" %-3.2i ", 0));
+	printf("\nftprint count: %i\n", ft_printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
+	printf("\nprint count: %i\n", printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
 	//printf("start printf: a%10cjsd%0.*ich%fa%sj\n", t, 1, daf, f, str);
 	//printf("")
 	//int x = ft_isvalid("10cha%sj\n");

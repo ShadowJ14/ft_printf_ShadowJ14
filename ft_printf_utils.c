@@ -76,7 +76,7 @@ char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
 			tmp = (char *)loc_calloc(1, *len, '0');
 			s = freejoin(tmp, s);
 		}
-		
+
 		free(tmp);
 	}
 	else if (i == 0)
@@ -93,6 +93,17 @@ char	*ft_add_spaces(char *s, int len)
 	s = freejoin(tmp, s);
 	free(tmp);
 	return (s);
+}
+
+char	*ft_add_spaces_after(char *s, int len)
+{
+	char *tmp;
+	char *s2;
+
+	tmp = loc_calloc(1, len, ' ');
+	s2 = freejoin(s, tmp);
+	free(s);
+	return (s2);
 }
 
 char	*ft_add_zeros(char *s, int *len, t_settings *sets)
@@ -136,13 +147,13 @@ int		ft_write_int(int i, t_settings *sets)
 		else if (len > 0)
 			nstr = ft_add_spaces(nstr, len);
 	}
-	ft_putstr(nstr);
 	len = sets->width - ft_strlen(nstr);
-	if (sets->minus)
-		ft_putblanks(len);
+	if (sets->minus && len > 0 && sets->width > sets->precision)
+		nstr = ft_add_spaces_after(nstr, len);
+	ft_putstr(nstr);
 	len = ft_strlen(nstr);
 	free(nstr);
-	return (ft_isbigger(sets->width, len));
+	return (len);
 }
 
 int		ft_write_uint(unsigned int i, t_settings *sets)
@@ -162,15 +173,13 @@ int		ft_write_uint(unsigned int i, t_settings *sets)
 		else if (len > 0)
 			nstr = ft_add_spaces(nstr, len);
 	}
-	ft_putstr(nstr);
 	len = sets->width - ft_strlen(nstr);
-	if (sets->minus)
-		ft_putblanks(len);
+	if (sets->minus && len > 0 && sets->width > sets->precision)
+		nstr = ft_add_spaces_after(nstr, len);
+	ft_putstr(nstr);
 	len = ft_strlen(nstr);
 	free(nstr);
-	// this is wrong, have to put all in buffer and count there for
-	// consistencty
-	return (ft_isbigger(sets->width, len));
+	return (len);
 }
 
  // these should stay in printf_utils
@@ -214,10 +223,10 @@ int		ft_write_hexa(unsigned int i, t_settings *sets, char fmt)
 		else if (len > 0)
 			nstr = ft_add_spaces(nstr, len);
 	}
-	ft_putstr(nstr);
 	len = sets->width - ft_strlen(nstr);
-	if (sets->minus)
-		ft_putblanks(len);
+	if (sets->minus && len > 0 && sets->width > sets->precision)
+		nstr = ft_add_spaces_after(nstr, len);
+	ft_putstr(nstr);
 	len = ft_strlen(nstr);
 	free(nstr);
 	return (len);
@@ -287,29 +296,29 @@ void	ft_init_struct(t_settings *sets)
 	sets->negative = false;
 }
 
-int		ft_write_pointer(unsigned int i, t_settings *sets)
+int		ft_write_pointer(unsigned long i, t_settings *sets)
 {
 	char	*nstr;
-	char	*tmp;
 	int		len;
 
 	nstr = ft_uint_to_hexa(i);
-	nstr = ft_strjoin("0x10", nstr);
+	nstr = freejoin("0x", nstr);
 	len = ft_strlen(nstr);
-	if (sets->dot && sets->precision > len)
-	{
-		len = sets->precision - len;
-		tmp = (char *)loc_calloc(1, len, '0');
-		nstr = ft_strjoin(tmp, nstr);
-		len = ft_strlen(nstr);
-		free(tmp);
-	}
+	if (sets->dot)
+		nstr = ft_int_precision(nstr, sets, &len, (long)i);
 	len = sets->width - len;
 	if (!sets->minus)
-		ft_putblanks(len);
+	{
+		if (sets->zero && (sets->precision < 0 || !sets->dot))
+			nstr = ft_add_zeros(nstr, &len, sets);
+		else if (len > 0)
+			nstr = ft_add_spaces(nstr, len);
+	}
+	len = sets->width - ft_strlen(nstr);
+	if (sets->minus && len > 0 && sets->width > sets->precision)
+		nstr = ft_add_spaces_after(nstr, len);
 	ft_putstr(nstr);
-	if (sets->minus)
-		ft_putblanks(len);
+	len = ft_strlen(nstr);
 	free(nstr);
-	return (ft_isbigger(sets->width, ft_strlen(nstr)));
+	return (len);
 }
