@@ -27,7 +27,7 @@
 # define HEXA "0123456789abcdef\0"
 # define NUMBS "0123456789\0"
 // remove . (dot) maybe
-# define FLAGS "-0.*\0"
+# define FLAGS "+ #-0.*\0"
 
 # define SUBSTRARGS const char *, unsigned int, size_t
 # define STRJOINARGS const char *, const char *
@@ -52,6 +52,9 @@ typedef struct s_settings{
 	int precision;
 	int ccount;
 	t_bool negative;
+	t_bool pound;
+	t_bool plus;
+	t_bool space;
 } t_settings;
 
 int		ft_writeconv_string(char *s, t_settings *sets);

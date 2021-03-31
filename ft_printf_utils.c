@@ -139,6 +139,10 @@ int		ft_write_int(int i, t_settings *sets)
 	len = ft_strlen(nstr);
 	if (sets->dot)
 		nstr = ft_int_precision(nstr, sets, &len, i);
+	if (sets->plus && i >= 0)
+		nstr = freejoin("+", nstr);
+	if (sets->space && i >= 0)
+		nstr = freejoin(" ", nstr);
 	len = sets->width - ft_strlen(nstr);
 	if (!sets->minus)
 	{
@@ -210,15 +214,17 @@ int		ft_write_hexa(unsigned int i, t_settings *sets, char fmt)
 	int		len;
 
 	nstr = ft_uint_to_hexa(i);
-	if (fmt == 'X')
-		nstr = ft_strupcase(nstr);
 	len = ft_strlen(nstr);
 	if (sets->dot)
 		nstr = ft_int_precision(nstr, sets, &len, i);
-	len = sets->width - len;
+	if (sets->pound && i != 0)
+		nstr = freejoin("0x", nstr);
+	if (fmt == 'X')
+		nstr = ft_strupcase(nstr);
+	len = sets->width - ft_strlen(nstr);
 	if (!sets->minus)
 	{
-		if (sets->zero && (sets->precision < 0 || !sets->dot))
+		if (len > 0 && sets->zero && (sets->precision < 0 || !sets->dot))
 			nstr = ft_add_zeros(nstr, &len, sets);
 		else if (len > 0)
 			nstr = ft_add_spaces(nstr, len);
@@ -294,6 +300,9 @@ void	ft_init_struct(t_settings *sets)
 	sets->precision = 0;
 	sets->ccount = 0;
 	sets->negative = false;
+	sets->pound = false;
+	sets->plus = false;
+	sets->space = false;
 }
 
 int		ft_write_pointer(unsigned long i, t_settings *sets)
