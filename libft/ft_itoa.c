@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static int		c_int(int n)
+static int	c_int(int n)
 {
-	int count;
+	int	count;
 
 	if (n == 0)
 		return (1);
@@ -27,7 +27,7 @@ static int		c_int(int n)
 	return (count);
 }
 
-static char		*loc_swap(char *ret, size_t i)
+static char	*loc_swap(char *ret, size_t i)
 {
 	char	tmp;
 	size_t	t;
@@ -45,9 +45,9 @@ static char		*loc_swap(char *ret, size_t i)
 	return (ret);
 }
 
-static char		*loc_malloc(long t, size_t n)
+static char	*loc_malloc(long t, size_t n)
 {
-	char *ret;
+	char	*ret;
 
 	if (n < 0)
 		ret = malloc(c_int(t) + 2);
@@ -56,7 +56,7 @@ static char		*loc_malloc(long t, size_t n)
 	return (ret);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*ret;
 	size_t	i;

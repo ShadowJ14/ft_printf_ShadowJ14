@@ -20,7 +20,8 @@ char	*ft_strdup(char *src)
 	i = 0;
 	while (src[i] != '\0')
 		i++;
-	if (!(target = malloc((i + 1) * sizeof(char))))
+	target = malloc((i + 1) * sizeof(char));
+	if (!target)
 		return (NULL);
 	i = 0;
 	while (src[i] != '\0')

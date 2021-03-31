@@ -14,7 +14,7 @@
 
 static char	*loc_realloc(char *str)
 {
-	char *tm;
+	char	*tm;
 
 	tm = malloc(ft_strlen(str) + 1);
 	ft_strlcpy(tm, str, ft_strlen(str) + 1);
@@ -22,7 +22,7 @@ static char	*loc_realloc(char *str)
 	return (tm);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*tmp;
 	int		i;
@@ -30,7 +30,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 
 	i = 0;
 	j = 0;
-	if (!s1 || !(tmp = malloc(ft_strlen(s1) + 1)))
+	tmp = malloc(ft_strlen(s1) + 1);
+	if (!s1 || !tmp)
 		return (NULL);
 	while (set[j] != 0)
 		if (s1[i] == set[j++] && (++i))

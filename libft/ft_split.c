@@ -14,7 +14,7 @@
 
 static long long	w_cnt(char *s, char c)
 {
-	long long cnt;
+	long long	cnt;
 
 	cnt = 0;
 	while (*s)
@@ -31,20 +31,21 @@ static long long	w_cnt(char *s, char c)
 	return (cnt);
 }
 
-static void			loc_strcpy(char *dst, char *from, char *until)
+static void	loc_strcpy(char *dst, char *from, char *until)
 {
 	while (from < until)
 		*(dst++) = *(from++);
 	*dst = 0;
 }
 
-char				**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char		**ret;
 	long long	idx;
 	char		*from;
 
-	if (!s || !(ret = (char**)malloc(sizeof(char*) * w_cnt((char *)s, c) + 1)))
+	ret = (char **)malloc(sizeof(char *) * w_cnt((char *)s, c) + 1);
+	if (!s || !ret)
 		return (NULL);
 	idx = 0;
 	while (*s)
@@ -54,7 +55,7 @@ char				**ft_split(char const *s, char c)
 			from = (char *)s;
 			while (*s && *s != c)
 				++s;
-			ret[idx] = (char*)malloc(s - from + 1);
+			ret[idx] = (char *)malloc(s - from + 1);
 			loc_strcpy(ret[idx++], from, (char *)s);
 		}
 		if (*s != 0)

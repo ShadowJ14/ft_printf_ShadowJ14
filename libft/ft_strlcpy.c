@@ -14,11 +14,9 @@
 
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
-	char			*d;
 	const char		*s;
 	unsigned int	n;
 
-	d = dest;
 	s = src;
 	n = size;
 	if (!src)
@@ -27,14 +25,15 @@ unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 	{
 		while (--n != 0)
 		{
-			if ((*d++ = *s++) == '\0')
+			*dest = *s++;
+			if (*dest++ == '\0')
 				break ;
 		}
 	}
 	if (n == 0)
 	{
 		if (size != 0)
-			*d = '\0';
+			*dest = '\0';
 		while (*s++)
 			;
 	}

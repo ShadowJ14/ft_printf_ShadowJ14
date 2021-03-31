@@ -13,9 +13,9 @@
 #include "libft.h"
 #include <stdio.h>
 
-static void		print_hex(int np)
+static void	print_hex(int np)
 {
-	char *hex;
+	char	*hex;
 
 	hex = "0123456789abcdef";
 	if (np >= 16)
@@ -27,9 +27,9 @@ static void		print_hex(int np)
 		write(1, &hex[np], 1);
 }
 
-void			ft_putstr_non_printable(char *str)
+void	ft_putstr_non_printable(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
