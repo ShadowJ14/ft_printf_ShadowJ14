@@ -6,11 +6,27 @@
 /*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:17 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 01:39:50 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/01 02:56:59 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/ft_printf.h"
+
+void	ft_init_struct(t_settings *sets)
+{
+	sets->minus = false;
+	sets->dot = false;
+	sets->zero = false;
+	sets->asterisk = false;
+	sets->dotastrsk = false;
+	sets->width = 0;
+	sets->precision = 0;
+	sets->ccount = 0;
+	sets->negative = false;
+	sets->pound = false;
+	sets->plus = false;
+	sets->space = false;
+}
 
 int	ft_convert(char fmt, va_list *ap, t_settings *sets)
 {
