@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:47:47 by lprates           #+#    #+#             */
-/*   Updated: 2021/03/27 19:42:31 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/01 01:33:17 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*ft_add_spaces(char *s, int len)
 char	*ft_add_spaces_after(char *s, int len)
 {
 	char *tmp;
-	char *s2;
+	char	*s2;
 
 	tmp = loc_calloc(1, len, ' ');
 	s2 = freejoin(s, tmp);
@@ -112,7 +112,14 @@ char	*ft_add_zeros(char *s, int *len, t_settings *sets)
 	char	*s2;
 
 	s2 = s;
-	if (sets->negative)
+	if (sets->plus && !sets->negative)
+	{
+		tmp = (char *)loc_calloc(1, *len, '0');
+		tmp = freejoin("+", tmp);
+		s = ft_strjoin(tmp, s + 1);
+		free(s2);
+	}
+	else if (sets->negative)
 	{
 		tmp = (char *)loc_calloc(1, *len, '0');
 		tmp = freejoin("-", tmp);
@@ -127,66 +134,6 @@ char	*ft_add_zeros(char *s, int *len, t_settings *sets)
 	free(tmp);
 	return (s);
 }
-
-int		ft_write_int(int i, t_settings *sets)
-{
-	char	*nstr;
-	int		len;
-
-	if (i < 0)
-		sets->negative = true;
-	nstr = ft_itoa(i);
-	len = ft_strlen(nstr);
-	if (sets->dot)
-		nstr = ft_int_precision(nstr, sets, &len, i);
-	if (sets->plus && i >= 0)
-		nstr = freejoin("+", nstr);
-	if (sets->space && i >= 0)
-		nstr = freejoin(" ", nstr);
-	len = sets->width - ft_strlen(nstr);
-	if (!sets->minus)
-	{
-		if (sets->zero && (sets->precision < 0 || !sets->dot))
-			nstr = ft_add_zeros(nstr, &len, sets);
-		else if (len > 0)
-			nstr = ft_add_spaces(nstr, len);
-	}
-	len = sets->width - ft_strlen(nstr);
-	if (sets->minus && len > 0 && sets->width > sets->precision)
-		nstr = ft_add_spaces_after(nstr, len);
-	ft_putstr(nstr);
-	len = ft_strlen(nstr);
-	free(nstr);
-	return (len);
-}
-
-int		ft_write_uint(unsigned int i, t_settings *sets)
-{
-	char	*nstr;
-	int		len;
-
-	nstr = ft_uitoa(i);
-	len = ft_strlen(nstr);
-	if (sets->dot)
-		nstr = ft_int_precision(nstr, sets, &len, i);
-	len = sets->width - ft_strlen(nstr);
-	if (!sets->minus)
-	{
-		if (sets->zero && (sets->precision < 0 || !sets->dot))
-			nstr = ft_add_zeros(nstr, &len, sets);
-		else if (len > 0)
-			nstr = ft_add_spaces(nstr, len);
-	}
-	len = sets->width - ft_strlen(nstr);
-	if (sets->minus && len > 0 && sets->width > sets->precision)
-		nstr = ft_add_spaces_after(nstr, len);
-	ft_putstr(nstr);
-	len = ft_strlen(nstr);
-	free(nstr);
-	return (len);
-}
-
- // these should stay in printf_utils
 
 void	ft_putblanks(int len)
 {
@@ -208,7 +155,7 @@ void	ft_putzeros(int len)
 	return ;
 }
 
-int		ft_write_hexa(unsigned int i, t_settings *sets, char fmt)
+int	ft_write_hexa(unsigned int i, t_settings *sets, char fmt)
 {
 	char	*nstr;
 	int		len;
@@ -240,9 +187,9 @@ int		ft_write_hexa(unsigned int i, t_settings *sets, char fmt)
 
 // seems to be working
 
-int		ft_write_char(char c, t_settings *sets)
+int	ft_write_char(char c, t_settings *sets)
 {
-	int		w;
+	int	w;
 
 	w = sets->width - 1;
 	if (!sets->minus)
@@ -259,18 +206,19 @@ int		ft_write_char(char c, t_settings *sets)
 	return (w);
 }
 
-// seems to be working
-
-int		ft_writeconv_string(char *s, t_settings *sets)
+//makes this better with addzeros
+int	ft_writeconv_string(char *s, t_settings *sets)
 {
 	int		w;
 	char	*sub;
 
 	if (sets->dot)
+	{
 		if (sets->precision)
 			sub = ft_substr(s, 0, sets->precision);
 		else
 			sub = ft_strdup("");
+	}
 	else
 		sub = ft_strdup(s);
 	w = sets->width - ft_strlen(sub);
@@ -305,7 +253,7 @@ void	ft_init_struct(t_settings *sets)
 	sets->space = false;
 }
 
-int		ft_write_pointer(unsigned long i, t_settings *sets)
+int	ft_write_pointer(unsigned long i, t_settings *sets)
 {
 	char	*nstr;
 	int		len;

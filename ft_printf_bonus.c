@@ -197,8 +197,8 @@ int main()
 	//printf("ft_printf count: %i\n", ft_printf("start mine:    as%10cdc%-*shaj%%b\n", t, 50, str));
 	//printf("printf count: %i\n", printf("start printf:  asdchaj%*pb\n", 20, str));
 	//printf("loc itoa: %s\n", loc_itoa(daf));
-	printf("\nftprint count: %i\n", ft_printf(" %#02x ", 1));
-	printf("\nprint count: %i\n", printf(" %#02x ", 1));
+	printf("\nftprint count: %i\n", ft_printf(" %+ 010i ", 0));
+	printf("\nprint count: %i\n", printf(" %+ 010i ", 0));
 	//printf("start printf: a%10cjsd%0.*ich%fa%sj\n", t, 1, daf, f, str);
 	//printf("")
 	//int x = ft_isvalid("10cha%sj\n");

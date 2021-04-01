@@ -12,9 +12,9 @@
 
 #include "./includes/ft_printf.h"
 
-static int		c_int(unsigned int n)
+static int	c_int(unsigned int n)
 {
-	int count;
+	int	count;
 
 	if (n == 0)
 		return (1);
@@ -27,7 +27,7 @@ static int		c_int(unsigned int n)
 	return (count);
 }
 
-static char		*loc_swap(char *ret, size_t i)
+static char	*loc_swap(char *ret, size_t i)
 {
 	char	tmp;
 	size_t	t;
@@ -45,7 +45,7 @@ static char		*loc_swap(char *ret, size_t i)
 	return (ret);
 }
 
-char			*ft_uitoa(unsigned int n)
+char	*ft_uitoa(unsigned int n)
 {
 	char	*ret;
 	size_t	i;

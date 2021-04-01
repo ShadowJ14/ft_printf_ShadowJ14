@@ -14,7 +14,7 @@
 
 static long	long	c_int(unsigned long n)
 {
-	unsigned long count;
+	unsigned long	count;
 
 	if (n == 0)
 		return (1);
@@ -27,7 +27,7 @@ static long	long	c_int(unsigned long n)
 	return (count);
 }
 
-static char		*loc_swap(char *ret, size_t i)
+static char	*loc_swap(char *ret, size_t i)
 {
 	char	tmp;
 	size_t	t;
@@ -47,8 +47,8 @@ static char		*loc_swap(char *ret, size_t i)
 
 char	*ft_uint_to_hexa(unsigned long x)
 {
-	char	*ret;
-	size_t	i;
+	char			*ret;
+	size_t			i;
 	unsigned long	t;
 
 	i = 0;
