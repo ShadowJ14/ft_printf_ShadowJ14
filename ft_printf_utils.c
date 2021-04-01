@@ -6,22 +6,24 @@
 /*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:47:47 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 02:56:49 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/01 03:31:19 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/ft_printf.h"
 #include "./libft/libft.h"
 
-int		ft_isbigger(int a, int b)
+int	ft_isbigger(int a, int b)
 {
-	return ((a >= b) ? a : b);
+	if (a >= b)
+		return (a);
+	return (b);
 }
 
 char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
 {
-	char *tmp;
-	char *s2;
+	char	*tmp;
+	char	*s2;
 
 	s2 = s;
 	if (sets->precision >= *len)
@@ -39,7 +41,6 @@ char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
 			tmp = (char *)loc_calloc(1, *len, '0');
 			s = freejoin(tmp, s);
 		}
-
 		free(tmp);
 	}
 	else if (i == 0)
@@ -50,7 +51,7 @@ char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
 
 char	*ft_add_spaces(char *s, int len)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = loc_calloc(1, len, ' ');
 	s = freejoin(tmp, s);
@@ -60,7 +61,7 @@ char	*ft_add_spaces(char *s, int len)
 
 char	*ft_add_spaces_after(char *s, int len)
 {
-	char *tmp;
+	char	*tmp;
 	char	*s2;
 
 	tmp = loc_calloc(1, len, ' ');

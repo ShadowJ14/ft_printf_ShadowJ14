@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 00:45:06 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 01:48:00 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/01 03:32:16 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	ft_writeconv_int(long c, char fmt, t_settings *sets)
 	int	count;
 
 	if (fmt == 'c')
-		return(count = ft_write_char(c, sets));
+		return (count = ft_write_char(c, sets));
 	if (fmt == 'd' || fmt == 'i' || fmt == 'u')
-		return(count = ft_write_int(c, sets));
-	return(count = ft_write_hexa(c, sets, fmt));
+		return (count = ft_write_int(c, sets));
+	return (count = ft_write_hexa(c, sets, fmt));
 }
 
 int	ft_myputchar(char format, int *count)
