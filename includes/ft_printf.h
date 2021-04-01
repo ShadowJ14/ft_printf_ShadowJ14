@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:55 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 01:42:19 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/01 02:51:43 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ char	*ft_add_spaces(char *s, int len);
 char	*ft_int_precision(char *s, t_settings *sets, int *len, int i);
 char	*freejoin(char *s1, char *s2);
 char	*free_substr(char *s1, int p);
+void	*loc_calloc(size_t count, size_t size, char c);
 
 #endif

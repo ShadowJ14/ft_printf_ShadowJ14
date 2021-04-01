@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:17 by lprates           #+#    #+#             */
-/*   Updated: 2021/03/27 19:39:15 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/01 02:49:52 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/ft_printf.h"
 
-int		ft_writeconv_int(int c, char fmt, t_settings *sets)
+int		ft_writeconv_int(long c, char fmt, t_settings *sets)
 {
 	int count;
 

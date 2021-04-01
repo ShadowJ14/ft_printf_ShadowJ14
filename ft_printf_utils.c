@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:47:47 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 01:33:17 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/01 02:51:09 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,6 @@
 int		ft_isbigger(int a, int b)
 {
 	return ((a >= b) ? a : b);
-}
-
-// care for name
-static void	*loc_calloc(size_t count, size_t size, char c)
-{
-	char	*tmp;
-
-	if (size == 1)
-		tmp = (char *)malloc((count * size) + 1);
-	else
-		tmp = (char *)malloc((count * size) + 1);
-	if (!tmp)
-		return (NULL);
-	// this is changed from original calloc
-	ft_memset(tmp, c, count * size);
-	tmp[size] = 0;
-	return (tmp);
-}
-
-char	*freejoin(char *s1, char *s2)
-{
-	char *tmp;
-
-	tmp = ft_strjoin(s1, s2);
-	free(s2);
-	return (tmp);
-}
-
-char	*free_substr(char *s1, int p)
-{
-	char	*tmp;
-	int		c;
-
-	c = 0;
-	tmp = ft_substr(s1, 0, p);
-	free(s1);
-	return (tmp);
 }
 
 char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
