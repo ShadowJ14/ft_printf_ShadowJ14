@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_chars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 01:55:56 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 02:08:29 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 11:37:13 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_write_char(char c, t_settings *sets)
 	return (w);
 }
 
-//makes this better with addzeros
 int	ft_writeconv_string(char *s, t_settings *sets)
 {
 	int		len;
