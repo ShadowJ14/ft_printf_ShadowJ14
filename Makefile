@@ -23,8 +23,7 @@ fclean: clean
 
 re: fclean  $(NAME)
 
-bonus: $(NAME) ft_printf_bonus.c
-			ar -rcs $(NAME) ft_printf_bonus.c
+bonus: $(NAME)
 
 so: $(SRC:%.c=%.o)
 	gcc -shared -o libft.so $(SRC:%.c:=%.o)

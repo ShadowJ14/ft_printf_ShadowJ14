@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:17 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 02:56:59 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 15:32:50 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_init_struct(t_settings *sets)
 	sets->pound = false;
 	sets->plus = false;
 	sets->space = false;
+	sets->nzero = false;
 }
 
 int	ft_convert(char fmt, va_list *ap, t_settings *sets)
@@ -43,6 +44,8 @@ int	ft_convert(char fmt, va_list *ap, t_settings *sets)
 		p = va_arg(*ap, unsigned long);
 		count = ft_write_pointer(p, sets);
 	}
+	else if (fmt == '%')
+		count = ft_print_pct(sets);
 	if (count)
 		return (count);
 	return (0);
@@ -80,7 +83,7 @@ int	ft_isvalid(char *format, t_settings *sets, va_list *ap)
 	char	*ret;
 
 	tmp = format;
-	while (ft_strchr(FLAGS, *format) && *format)
+	while (ft_strchr(FLAGS, *format) && *(format + 1))
 		ft_setflags(format++, sets, ap);
 	if (ft_strchr("0123456789\0", *format) && sets->dot == false)
 	{
@@ -115,11 +118,6 @@ int	ft_printf(const char *format, ...)
 		{
 			ft_init_struct(&sets);
 			format++;
-			if (*format == '%')
-			{
-				format += ft_myputchar(*format, &count);
-				continue ;
-			}
 			format += ft_isvalid((char *)format, &sets, &ap);
 			count += ft_convert(*format, &ap, &sets);
 			format++;

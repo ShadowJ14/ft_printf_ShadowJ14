@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:55 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 02:51:43 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 14:23:21 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	FT_PRINTF_H
+#ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
 # define CONV "cspdiuxX%\0"
@@ -40,6 +40,7 @@ typedef struct s_settings{
 	bool	pound;
 	bool	plus;
 	bool	space;
+	bool	nzero;
 }		t_settings;
 
 int		ft_printf(const char *format, ...);
@@ -68,5 +69,7 @@ char	*ft_int_precision(char *s, t_settings *sets, int *len, int i);
 char	*freejoin(char *s1, char *s2);
 char	*free_substr(char *s1, int p);
 void	*loc_calloc(size_t count, size_t size, char c);
+char	*ft_spaces_or_zeros(char *nstr, int *len, t_settings *sets);
+int		ft_print_pct(t_settings *sets);
 
 #endif

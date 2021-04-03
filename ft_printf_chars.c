@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 01:55:56 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 11:37:13 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 13:28:49 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_writeconv_string(char *s, t_settings *sets)
 	len = sets->width - ft_strlen(sub);
 	if (!sets->minus)
 		sub = ft_spaces_or_zeros(sub, &len, sets);
-	if (sets->minus)
+	if (sets->minus && len > 0)
 		sub = ft_add_spaces_after(sub, len);
 	ft_putstr(sub);
 	len = ft_strlen(sub);

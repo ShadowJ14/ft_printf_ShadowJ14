@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 02:13:01 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 11:37:39 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 15:09:15 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*loc_calloc(size_t count, size_t size, char c)
 	char	*tmp;
 
 	if (size == 1)
-		tmp = (char *)malloc((count * size) + 1);
+		tmp = (char *)malloc((count * size) + 2);
 	else
 		tmp = (char *)malloc((count * size) + 1);
 	if (!tmp)
