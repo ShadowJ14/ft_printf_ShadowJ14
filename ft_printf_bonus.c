@@ -1,63 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:17 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 02:49:52 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/01 02:56:59 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/ft_printf.h"
 
-int		ft_writeconv_int(long c, char fmt, t_settings *sets)
+void	ft_init_struct(t_settings *sets)
 {
-	int count;
-
-	count = 0;
-	// done seems to be working
-	if (fmt == 'c')
-		count = ft_write_char(c, sets);
-	// done, seems to be working
-	else if (fmt == 'd' || fmt == 'i')
-		count = ft_write_int(c, sets);
-	else if (fmt == 'x' || fmt == 'X')
-		count = ft_write_hexa(c, sets, fmt);
-	else
-		count = ft_write_uint(c, sets);
-	return (count);
+	sets->minus = false;
+	sets->dot = false;
+	sets->zero = false;
+	sets->asterisk = false;
+	sets->dotastrsk = false;
+	sets->width = 0;
+	sets->precision = 0;
+	sets->ccount = 0;
+	sets->negative = false;
+	sets->pound = false;
+	sets->plus = false;
+	sets->space = false;
 }
-
-/*
-** s done seems to be working
-**
-*/
 
 int	ft_convert(char fmt, va_list *ap, t_settings *sets)
 {
-	char	*s;
-	long	c;
 	unsigned long	p;
-	int		count;
+	int				count;
 
 	count = 0;
 	if (ft_strchr(CONVAINTS, fmt))
-	{
-		if (ft_strchr(CONVUINTS, fmt))
-			c = va_arg(*ap, unsigned int);
-		else
-			c = va_arg(*ap, int);
-		count = ft_writeconv_int(c, fmt, sets);
-	}
+		count = ft_handle_ints(fmt, ap, sets);
 	else if (fmt == 's')
-	{
-		if (!(s = va_arg(*ap, char *)))
-			count = ft_writeconv_string("(null)", sets);
-		else
-			count = ft_writeconv_string(s, sets);
-	}
+		count = ft_handle_strings(ap, sets);
 	else if (fmt == 'p')
 	{
 		p = va_arg(*ap, unsigned long);
@@ -68,7 +48,7 @@ int	ft_convert(char fmt, va_list *ap, t_settings *sets)
 	return (0);
 }
 
-void		ft_setflags(char *format, t_settings *sets, va_list *ap)
+void	ft_setflags(char *format, t_settings *sets, va_list *ap)
 {
 	if (*format == '#')
 		sets->pound = true;
@@ -91,35 +71,20 @@ void		ft_setflags(char *format, t_settings *sets, va_list *ap)
 		}
 	}
 	else if (*format == '.')
-	{
-		sets->dot = true;
-		if (*(format + 1) == '*')
-			sets->precision = va_arg(*ap, int);
-		else
-			sets->precision = ft_atoi(format + 1);
-	}
+		ft_handle_dotflag(format, ap, sets);
 }
 
-/*
-** seems to be working for defined flags
-** may add plus after for bonus
-*/
-
-int		ft_isvalid(char *format, t_settings *sets, va_list *ap)
+int	ft_isvalid(char *format, t_settings *sets, va_list *ap)
 {
-	char *tmp;
-	char *ret;
+	char	*tmp;
+	char	*ret;
 
 	tmp = format;
 	while (ft_strchr(FLAGS, *format) && *format)
-	{
-		ft_setflags(format, sets, ap);
-		format++;
-	}
+		ft_setflags(format++, sets, ap);
 	if (ft_strchr("0123456789\0", *format) && sets->dot == false)
 	{
 		sets->width = ft_atoi(format);
-		// a fix
 		ret = ft_itoa(sets->width);
 		format += ft_strlen(ret);
 		free(ret);
@@ -134,28 +99,15 @@ int		ft_isvalid(char *format, t_settings *sets, va_list *ap)
 		format += ft_strlen(ret);
 		free(ret);
 	}
-	if (ft_strchr(CONV, *format) != 0)
-		return (format - tmp);
-	else
-		return (0);
+	return (format - tmp);
 }
 
-// needed to start va_list
-// need to check this:
-// https://stackoverflow.com/questions/14768230/malloc-for-struct-and-pointer-in-c
-/*
-void	ft_free_sets(t_settings *sets)
-{
-	free(sets->width);
-}*/
-
-int		ft_printf(const char *restrict format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	t_settings	sets;
-	int			count;
+	static int	count = 0;
 
-	count = 0;
 	va_start(ap, format);
 	while (*format)
 	{
@@ -165,42 +117,16 @@ int		ft_printf(const char *restrict format, ...)
 			format++;
 			if (*format == '%')
 			{
-				write(1, format++, 1);
-				count++;
-				continue;
+				format += ft_myputchar(*format, &count);
+				continue ;
 			}
-			sets.ccount = ft_isvalid((char *)format, &sets, &ap);
-			format += sets.ccount;
+			format += ft_isvalid((char *)format, &sets, &ap);
 			count += ft_convert(*format, &ap, &sets);
-			//ft_free_sets(&sets);
 			format++;
 		}
 		else
-		{
-			write(1, format++, 1);
-			count++;
-		}
+			format += ft_myputchar(*format, &count);
 	}
 	va_end(ap);
 	return (count);
 }
-
-/*
-int main()
-{
-	char *str = "Ola";
-	unsigned int daf = 2147489999;
-	int xyz = -2147483647;
-	int abc = 4;
-	char t = 'a';
-	float f = 5.45;
-	//printf("ft_printf count: %i\n", ft_printf("start mine:    as%10cdc%-*shaj%%b\n", t, 50, str));
-	//printf("printf count: %i\n", printf("start printf:  asdchaj%*pb\n", 20, str));
-	//printf("loc itoa: %s\n", loc_itoa(daf));
-	printf("\nftprint count: %i\n", ft_printf(" %+ 010i ", 0));
-	printf("\nprint count: %i\n", printf(" %+ 010i ", 0));
-	//printf("start printf: a%10cjsd%0.*ich%fa%sj\n", t, 1, daf, f, str);
-	//printf("")
-	//int x = ft_isvalid("10cha%sj\n");
-	//printf("%i\n", x);
-}*/

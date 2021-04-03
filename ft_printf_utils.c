@@ -13,13 +13,6 @@
 #include "./includes/ft_printf.h"
 #include "./libft/libft.h"
 
-int	ft_isbigger(int a, int b)
-{
-	if (a >= b)
-		return (a);
-	return (b);
-}
-
 char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
 {
 	char	*tmp;
@@ -97,24 +90,4 @@ char	*ft_add_zeros(char *s, int *len, t_settings *sets)
 	}
 	free(tmp);
 	return (s);
-}
-
-void	ft_putblanks(int len)
-{
-	while (len > 0)
-	{
-		ft_putchar(' ');
-		len--;
-	}
-	return ;
-}
-
-void	ft_putzeros(int len)
-{
-	while (len > 0)
-	{
-		ft_putchar('0');
-		len--;
-	}
-	return ;
 }

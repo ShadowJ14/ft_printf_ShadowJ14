@@ -22,7 +22,7 @@ static char	*ft_int_or_uint(long i, t_settings *sets)
 	return (ft_uitoa(i));
 }
 
-static char	*ft_spaces_or_zeros(char *nstr, int *len, t_settings *sets)
+char	*ft_spaces_or_zeros(char *nstr, int *len, t_settings *sets)
 {
 	if (*len > 0 && sets->zero && (sets->precision < 0 || !sets->dot))
 		return (ft_add_zeros(nstr, len, sets));
@@ -48,7 +48,7 @@ int	ft_write_int(long i, t_settings *sets)
 	if (!sets->minus)
 		nstr = ft_spaces_or_zeros(nstr, &len, sets);
 	if (sets->minus && len > 0 && sets->width > sets->precision)
-		nstr = ft_add_spaces_after(nstr, sets->width - ft_strlen(nstr));
+		nstr = ft_add_spaces_after(nstr, len);
 	ft_putstr(nstr);
 	len = ft_strlen(nstr);
 	free(nstr);

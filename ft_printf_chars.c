@@ -12,6 +12,33 @@
 
 #include "includes/ft_printf.h"
 
+int	ft_isbigger(int a, int b)
+{
+	if (a >= b)
+		return (a);
+	return (b);
+}
+
+void	ft_putblanks(int len)
+{
+	while (len > 0)
+	{
+		ft_putchar(' ');
+		len--;
+	}
+	return ;
+}
+
+void	ft_putzeros(int len)
+{
+	while (len > 0)
+	{
+		ft_putchar('0');
+		len--;
+	}
+	return ;
+}
+
 int	ft_write_char(char c, t_settings *sets)
 {
 	int	w;
@@ -34,7 +61,7 @@ int	ft_write_char(char c, t_settings *sets)
 //makes this better with addzeros
 int	ft_writeconv_string(char *s, t_settings *sets)
 {
-	int		w;
+	int		len;
 	char	*sub;
 
 	if (sets->dot)
@@ -46,17 +73,13 @@ int	ft_writeconv_string(char *s, t_settings *sets)
 	}
 	else
 		sub = ft_strdup(s);
+	len = sets->width - ft_strlen(sub);
 	if (!sets->minus)
-	{
-		if (sets->zero)
-			ft_putzeros(sets->width - ft_strlen(sub));
-		else
-			ft_putblanks(sets->width - ft_strlen(sub));
-	}
-	ft_putstr(sub);
+		sub = ft_spaces_or_zeros(sub, &len, sets);
 	if (sets->minus)
-		ft_putblanks(sets->width - ft_strlen(sub));
-	w = ft_isbigger(sets->width, ft_strlen(sub));
+		sub = ft_add_spaces_after(sub, len);
+	ft_putstr(sub);
+	len = ft_strlen(sub);
 	free(sub);
-	return (w);
+	return (len);
 }

@@ -130,9 +130,3 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (count);
 }
-/*
-int main()
-{
-	printf("\nftprint count: %i\n", ft_printf(" %+02d ", -1));
-	printf("\nprint count: %i\n", printf(" %+02d ", -1));
-}*/
