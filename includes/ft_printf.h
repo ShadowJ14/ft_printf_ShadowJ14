@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:55 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 14:23:21 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 16:43:17 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ char	*free_substr(char *s1, int p);
 void	*loc_calloc(size_t count, size_t size, char c);
 char	*ft_spaces_or_zeros(char *nstr, int *len, t_settings *sets);
 int		ft_print_pct(t_settings *sets);
+char	*handle_plus_negative(int *len, char *s, char *tmp, t_settings *sets);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 02:13:01 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 15:09:15 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 17:24:34 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,20 @@ char	*free_substr(char *s1, int p)
 	tmp = ft_substr(s1, 0, p);
 	free(s1);
 	return (tmp);
+}
+
+char	*handle_plus_negative(int *len, char *s, char *tmp, t_settings *sets)
+{
+	char	*s2;
+
+	s2 = s;
+	tmp = (char *)loc_calloc(1, *len, '0');
+	if (sets->plus)
+		tmp = freejoin("+", tmp);
+	else
+		tmp = freejoin("-", tmp);
+	s = ft_strjoin(tmp, s + 1);
+	free(tmp);
+	free(s2);
+	return (s);
 }

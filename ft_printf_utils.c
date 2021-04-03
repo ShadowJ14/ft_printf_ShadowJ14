@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:47:47 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 14:55:02 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 17:21:56 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,16 @@ char	*ft_add_spaces_after(char *s, int len)
 char	*ft_add_zeros(char *s, int *len, t_settings *sets)
 {
 	char	*tmp;
-	char	*s2;
 
-	s2 = s;
+	tmp = NULL;
 	if (sets->plus || sets->negative)
-	{
-		tmp = (char *)loc_calloc(1, *len, '0');
-		if (sets->plus)
-			tmp = freejoin("+", tmp);
-		else
-			tmp = freejoin("-", tmp);
-		s = ft_strjoin(tmp, s + 1);
-		free(s2);
-	}
+		s = handle_plus_negative(len, s, tmp, sets);
 	else
 	{
 		if (sets->pound && !sets->nzero)
 			*len -= 2;
 		if (sets->space && !sets->zero)
-			*len = *len - 1;
+			*len -= 1;
 		tmp = loc_calloc(1, *len, '0');
 		s = freejoin(tmp, s);
 		if (sets->pound && !sets->nzero)

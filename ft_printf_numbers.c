@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 01:02:46 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 15:27:49 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 16:25:11 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char	*ft_int_or_uint(long i, t_settings *sets)
 	if (i < 0)
 	{
 		sets->negative = true;
+		sets->plus = false;
 		return (ft_itoa(i));
 	}
 	if (i == 0)
@@ -27,7 +28,11 @@ static char	*ft_int_or_uint(long i, t_settings *sets)
 char	*ft_spaces_or_zeros(char *nstr, int *len, t_settings *sets)
 {
 	if (*len > 0 && sets->zero && (sets->precision < 0 || !sets->dot))
+	{
+		if (sets->pound && *len - 2 < 0 && !sets->nzero)
+			return (nstr);
 		return (ft_add_zeros(nstr, len, sets));
+	}
 	else if (*len > 0)
 	{
 		if (sets->pound && !sets->nzero)

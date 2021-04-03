@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:17 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 15:32:50 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/03 16:25:23 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,3 +128,9 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (count);
 }
+/*
+int main()
+{
+	ft_printf(" %+03d ", -1);
+	printf(" %+03d ", -1);
+}*/
