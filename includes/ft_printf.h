@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:55 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 16:43:17 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/10 11:01:42 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 typedef struct s_settings{
 	int		width;
 	int		precision;
-	int		ccount;
 	bool	minus;
 	bool	dot;
 	bool	zero;

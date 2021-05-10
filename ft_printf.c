@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:17 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 16:25:23 by lprates          ###   ########.fr       */
+/*   Updated: 2021/04/10 11:04:14 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_init_struct(t_settings *sets)
 	sets->dotastrsk = false;
 	sets->width = 0;
 	sets->precision = 0;
-	sets->ccount = 0;
 	sets->negative = false;
 	sets->pound = false;
 	sets->plus = false;
@@ -77,7 +76,7 @@ void	ft_setflags(char *format, t_settings *sets, va_list *ap)
 		ft_handle_dotflag(format, ap, sets);
 }
 
-int	ft_isvalid(char *format, t_settings *sets, va_list *ap)
+int	ft_checkflags(char *format, t_settings *sets, va_list *ap)
 {
 	char	*tmp;
 	char	*ret;
@@ -85,7 +84,7 @@ int	ft_isvalid(char *format, t_settings *sets, va_list *ap)
 	tmp = format;
 	while (ft_strchr(FLAGS, *format) && *(format + 1))
 		ft_setflags(format++, sets, ap);
-	if (ft_strchr("0123456789\0", *format) && sets->dot == false)
+	if (ft_strchr("0123456789", *format) && sets->dot == false)
 	{
 		sets->width = ft_atoi(format);
 		ret = ft_itoa(sets->width);
@@ -96,7 +95,7 @@ int	ft_isvalid(char *format, t_settings *sets, va_list *ap)
 		ft_setflags(format++, sets, ap);
 	if (*format == '*')
 		format++;
-	while (ft_strchr("0123456789\0", *format))
+	while (ft_strchr("0123456789", *format))
 	{
 		ret = ft_itoa(sets->precision);
 		format += ft_strlen(ret);
@@ -109,8 +108,9 @@ int	ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	t_settings	sets;
-	static int	count = 0;
+	int			count;
 
+	count = 0;
 	va_start(ap, format);
 	while (*format)
 	{
@@ -118,7 +118,7 @@ int	ft_printf(const char *format, ...)
 		{
 			ft_init_struct(&sets);
 			format++;
-			format += ft_isvalid((char *)format, &sets, &ap);
+			format += ft_checkflags((char *)format, &sets, &ap);
 			count += ft_convert(*format, &ap, &sets);
 			format++;
 		}
@@ -128,9 +128,3 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (count);
 }
-/*
-int main()
-{
-	ft_printf(" %+03d ", -1);
-	printf(" %+03d ", -1);
-}*/
