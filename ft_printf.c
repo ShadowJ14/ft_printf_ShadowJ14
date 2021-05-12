@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 12:48:17 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/10 11:04:14 by lprates          ###   ########.fr       */
+/*   Updated: 2021/05/12 22:45:48 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void	ft_init_struct(t_settings *sets)
 	sets->space = false;
 	sets->nzero = false;
 }
+
+/*
+** sends the received conversion specifier into
+** the appropriate function to be handled
+*/
 
 int	ft_convert(char fmt, va_list *ap, t_settings *sets)
 {
@@ -49,6 +54,11 @@ int	ft_convert(char fmt, va_list *ap, t_settings *sets)
 		return (count);
 	return (0);
 }
+
+/*
+** receives a flag char and sets the appropriate flag
+** in t_settings type struct
+*/
 
 void	ft_setflags(char *format, t_settings *sets, va_list *ap)
 {
@@ -75,6 +85,12 @@ void	ft_setflags(char *format, t_settings *sets, va_list *ap)
 	else if (*format == '.')
 		ft_handle_dotflag(format, ap, sets);
 }
+
+/*
+** checks what flags are present after the '%' symbol
+** and the one that exist are sent to ft_setflags() in all cases
+** except to set width, which is set in this function
+*/
 
 int	ft_checkflags(char *format, t_settings *sets, va_list *ap)
 {
@@ -103,6 +119,10 @@ int	ft_checkflags(char *format, t_settings *sets, va_list *ap)
 	}
 	return (format - tmp);
 }
+
+/*
+** my version of printf
+*/
 
 int	ft_printf(const char *format, ...)
 {

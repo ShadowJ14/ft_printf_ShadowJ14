@@ -6,11 +6,16 @@
 /*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 00:45:06 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/01 03:32:16 by lprates          ###   ########.fr       */
+/*   Updated: 2021/05/12 22:46:22 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
+
+/*
+** handles the conversion specifiers that use ints and uints
+** to get the correct type from va_arg()
+*/
 
 int	ft_handle_ints(char fmt, va_list *ap, t_settings *sets)
 {
@@ -26,6 +31,11 @@ int	ft_handle_ints(char fmt, va_list *ap, t_settings *sets)
 	return (count);
 }
 
+/*
+** handles the string conversion specifier
+** and the situation where va_arg() retrives a NULL
+*/
+
 int	ft_handle_strings(va_list *ap, t_settings *sets)
 {
 	char	*s;
@@ -34,9 +44,9 @@ int	ft_handle_strings(va_list *ap, t_settings *sets)
 	count = 0;
 	s = va_arg(*ap, char *);
 	if (!s)
-		count = ft_writeconv_string("(null)", sets);
+		count = ft_write_string("(null)", sets);
 	else
-		count = ft_writeconv_string(s, sets);
+		count = ft_write_string(s, sets);
 	return (count);
 }
 
@@ -50,6 +60,11 @@ void	ft_handle_dotflag(char *format, va_list *ap, t_settings *sets)
 	return ;
 }
 
+/*
+** handles the value retrieved from va_args()
+** that corresponds to all int type conversion specifiers
+*/
+
 int	ft_writeconv_int(long c, char fmt, t_settings *sets)
 {
 	int	count;
@@ -57,9 +72,16 @@ int	ft_writeconv_int(long c, char fmt, t_settings *sets)
 	if (fmt == 'c')
 		return (count = ft_write_char(c, sets));
 	if (fmt == 'd' || fmt == 'i' || fmt == 'u')
-		return (count = ft_write_int(c, sets));
+		return (count = ft_write_number(c, sets));
 	return (count = ft_write_hexa(c, sets, fmt));
 }
+
+/*
+** modified version of putchar that increments
+** the value being pointed by count and
+** returns 1 to increment the address value of format
+** in ft_printf
+*/
 
 int	ft_myputchar(char format, int *count)
 {

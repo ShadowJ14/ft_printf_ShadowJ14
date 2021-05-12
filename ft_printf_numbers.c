@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_numbers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 01:02:46 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 16:25:11 by lprates          ###   ########.fr       */
+/*   Updated: 2021/05/12 22:46:24 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
+
+/*
+** handles if value is inside int or uint ranges
+** to call appropriate conversion function
+** this allows both to be handled by ft_write_number
+*/
 
 static char	*ft_int_or_uint(long i, t_settings *sets)
 {
@@ -24,6 +30,11 @@ static char	*ft_int_or_uint(long i, t_settings *sets)
 		sets->nzero = true;
 	return (ft_uitoa(i));
 }
+
+/*
+** handles usage of spaces or zeros depending on the flags used
+** used to handle pound (#) flag for bonus section of exercise
+*/
 
 char	*ft_spaces_or_zeros(char *nstr, int *len, t_settings *sets)
 {
@@ -42,12 +53,18 @@ char	*ft_spaces_or_zeros(char *nstr, int *len, t_settings *sets)
 			*len = sets->width - ft_strlen(nstr);
 		}
 		if (*len > 0)
-			return (ft_add_spaces(nstr, *len));
+			return (ft_add_spaces_right(nstr, *len));
 	}
 	return (nstr);
 }
 
-int	ft_write_int(long i, t_settings *sets)
+/*
+** this only handles int and uint values as part of
+** the mandatory section of the exercise.
+** builds the string according to the flags set
+*/
+
+int	ft_write_number(long i, t_settings *sets)
 {
 	char	*nstr;
 	int		len;
@@ -64,7 +81,7 @@ int	ft_write_int(long i, t_settings *sets)
 	if (!sets->minus)
 		nstr = ft_spaces_or_zeros(nstr, &len, sets);
 	if (sets->minus && len > 0 && sets->width > sets->precision)
-		nstr = ft_add_spaces_after(nstr, len);
+		nstr = ft_add_spaces_left(nstr, len);
 	if (sets->space && i >= 0 && !sets->plus)
 		nstr = freejoin(" ", nstr);
 	ft_putstr(nstr);
@@ -72,6 +89,11 @@ int	ft_write_int(long i, t_settings *sets)
 	free(nstr);
 	return (len);
 }
+
+/*
+** this handles hexadecimal numbers, building the string
+** according to the flags set
+*/
 
 int	ft_write_hexa(unsigned int i, t_settings *sets, char fmt)
 {
@@ -93,12 +115,17 @@ int	ft_write_hexa(unsigned int i, t_settings *sets, char fmt)
 		nstr = ft_strupcase(nstr);
 	len = sets->width - ft_strlen(nstr);
 	if (sets->minus && len > 0 && sets->width > sets->precision)
-		nstr = ft_add_spaces_after(nstr, len);
+		nstr = ft_add_spaces_left(nstr, len);
 	ft_putstr(nstr);
 	len = ft_strlen(nstr);
 	free(nstr);
 	return (len);
 }
+
+/*
+** this handles address values, here interpreted as an hexadecimal number,
+** building the string according to the flags set
+*/
 
 int	ft_write_pointer(unsigned long i, t_settings *sets)
 {
@@ -116,11 +143,11 @@ int	ft_write_pointer(unsigned long i, t_settings *sets)
 		if (sets->zero && len > 0 && (sets->precision < 0 || !sets->dot))
 			nstr = ft_add_zeros(nstr, &len, sets);
 		else if (len > 0)
-			nstr = ft_add_spaces(nstr, len);
+			nstr = ft_add_spaces_right(nstr, len);
 	}
 	len = sets->width - ft_strlen(nstr);
 	if (sets->minus && len > 0 && sets->width > sets->precision)
-		nstr = ft_add_spaces_after(nstr, len);
+		nstr = ft_add_spaces_left(nstr, len);
 	ft_putstr(nstr);
 	len = ft_strlen(nstr);
 	free(nstr);

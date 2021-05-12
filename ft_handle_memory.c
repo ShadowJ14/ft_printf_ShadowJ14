@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_memory.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 02:13:01 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 17:24:34 by lprates          ###   ########.fr       */
+/*   Updated: 2021/05/10 20:03:34 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
+
+/*
+** slight variation of ft_calloc from libft
+** to place a value defined in the input when doing calloc
+** instead of filling the memory with 0's
+*/
 
 void	*loc_calloc(size_t count, size_t size, char c)
 {
@@ -27,6 +33,12 @@ void	*loc_calloc(size_t count, size_t size, char c)
 	return (tmp);
 }
 
+/*
+** freejoin is used to free s2, so tmp can be returned to
+** the variable used as input when the function is called
+** ex: s2 = freejoin(s1, s2)
+*/
+
 char	*freejoin(char *s1, char *s2)
 {
 	char	*tmp;
@@ -36,12 +48,14 @@ char	*freejoin(char *s1, char *s2)
 	return (tmp);
 }
 
+/*
+** same logic as freejoin but for ft_substr
+*/
+
 char	*free_substr(char *s1, int p)
 {
 	char	*tmp;
-	int		c;
 
-	c = 0;
 	tmp = ft_substr(s1, 0, p);
 	free(s1);
 	return (tmp);

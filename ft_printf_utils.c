@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lprates <lprates@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 01:47:47 by lprates           #+#    #+#             */
-/*   Updated: 2021/04/03 17:21:56 by lprates          ###   ########.fr       */
+/*   Updated: 2021/05/12 22:46:30 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/ft_printf.h"
 #include "./libft/libft.h"
+
+/*
+** handles when printing the percentage convertion char
+*/
 
 int	ft_print_pct(t_settings *sets)
 {
@@ -23,12 +27,16 @@ int	ft_print_pct(t_settings *sets)
 	if (!sets->minus)
 		sub = ft_spaces_or_zeros(sub, &len, sets);
 	if (sets->minus)
-		sub = ft_add_spaces_after(sub, len);
+		sub = ft_add_spaces_left(sub, len);
 	ft_putstr(sub);
 	len = ft_strlen(sub);
 	free(sub);
 	return (len);
 }
+
+/*
+** handles the precision values
+*/
 
 char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
 {
@@ -59,7 +67,11 @@ char	*ft_int_precision(char *s, t_settings *sets, int *len, int i)
 	return (s);
 }
 
-char	*ft_add_spaces(char *s, int len)
+/*
+** adds spaces to the end of s string
+*/
+
+char	*ft_add_spaces_right(char *s, int len)
 {
 	char	*tmp;
 
@@ -69,7 +81,11 @@ char	*ft_add_spaces(char *s, int len)
 	return (s);
 }
 
-char	*ft_add_spaces_after(char *s, int len)
+/*
+** adds spaces to the beginning of s string
+*/
+
+char	*ft_add_spaces_left(char *s, int len)
 {
 	char	*tmp;
 	char	*s2;
